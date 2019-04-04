@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'pt_BR',
+    'locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
@@ -171,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        WebEstoque\Providers\AppServiceProvider::class,
+        WebEstoque\Providers\AuthServiceProvider::class,
+        // WebEstoque\Providers\BroadcastServiceProvider::class,
+        WebEstoque\Providers\EventServiceProvider::class,
+        WebEstoque\Providers\RouteServiceProvider::class,
 
     ],
 
