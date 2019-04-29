@@ -117,7 +117,7 @@ return [
         'CADASTRO',
         [
             'text' => 'Classificações',
-            'url'  => 'admin/classifications',
+            'url'  => 'classifications',
             'icon' => 'database',
         ],
         [
