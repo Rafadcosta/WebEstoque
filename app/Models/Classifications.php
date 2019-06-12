@@ -46,6 +46,6 @@ class Classifications extends Model
      */
     public function products()
     {
-        return $this->hasMany('\App\Model\Products');
+        return $this->hasMany('\App\Models\Products');
     }
 }

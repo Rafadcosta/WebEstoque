@@ -18,38 +18,41 @@
 @stop
 @section('content')
 
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Formulário de inserção de registro</div>
-    <div class="panel-body">
+<form action="{{ route('classifications.store') }}" method="post" role="form">
+    {{ csrf_field() }}
 
-        <form action="{{ route('classifications.store') }}" method="post" role="form">
-            {{ csrf_field() }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Formulário de inserção de registro
+        </div> <!-- panel-heading -->
+
+        <div class="panel-body">
 
             <div class="form-group">
-
                 <label for="descricao">Descrição
                     <span class="text-red">*</span>
                 </label>
 
                 <input type="text" class="form-control {{ $errors->has('descricao') ? 'is-invalid' : '' }}"
                     id="descricao" name="descricao" placeholder="Descrição da classificação"
-                    value="{{ old('descricao') }}"> @if($errors->has('descricao'))
+                    value="{{ old('descricao') }}">
+
+                @if($errors->has('descricao'))
                 <span class='invalid-feedback text-red'>
                     {{ $errors->first('descricao') }}
-                </span> @endif
-
+                </span>
+                @endif
             </div>
+        </div> <!-- panel-body -->
 
+        <div class="panel-footer">
             <a class="btn btn-default" href="{{ route('classifications.index') }}">
-                <i class="fa fa-chevron-circle-left"> Voltar</i>
+                <i class="fa fa-chevron-circle-left"></i> Voltar
             </a>
 
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"> Gravar</i></button>
-
-        </form>
-
-    </div>
-</div>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
+        </div> <!-- panel-footer -->
+    </div> <!-- panel-default -->
+</form>
 
 @stop

@@ -1,110 +1,106 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-<head>
+    <title>@yield('title_prefix', config('adminlte.title_prefix', ''))@yield('title', config('adminlte.title', 'AdminLTE 2'))@yield('title_postfix', config('adminlte.title_postfix', ''))</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 
-  <title>Scrolling Nav - Start Bootstrap Template</title>
+        <title>Laravel</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="{{ asset('vendor/landpage/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-  <!-- Custom styles for this template -->
-  <link href="{{ asset('css/scrolling-nav.css') }}" rel="stylesheet">
+        <!-- Styles -->
+        <style>
+            .background {
+                background: url("{{ asset('img/back1.jpg') }}");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                background-color: #fff;
+                margin: 0;
+                margin-bottom: 0;
+                bottom: 0;
+                height: 600px;
+            }
 
-</head>
+            .footer {
+                background-color: rgba(0,0,0,0.5);
+                border-top: solid 1px #424242;
+                color: #ACACAC;
+                left: 0px;
+                right: 0px;
+                bottom:0px;
+                margin-left: auto;
+                margin-right: auto;
+                position: fixed;
+                height: 50px;
+            }
+        </style>
+    </head>
 
-<body id="page-top">
+    <body class="background">
+        <!-- menu superior da página -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand" style='font-family:Raleway'>
+                        <span class="text-bold">WebEstoque</span>
+                    </a>
+                </div>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">{{ env('APP_NAME') }}</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ route('register') }}">Registrar-se</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+                @if (Route::has("login"))
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                    @auth
+                        <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Registrar-se</a></li>
+                    @endauth
+                    </ul>
+                </div>
+                @endif
+            </div>
+        </nav>
 
-  <header class="bg-primary text-white">
-    <div class="container text-center">
-      <h1>Bem-vindo ao WebEstoque</h1>
-      <p class="lead">Sistema de Estoque criado na disciplina de Programação Web</p>
-    </div>
-  </header>
+        <!-- Área central da página -->
+        <div class="content">
 
-  <section id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>About this page</h2>
-          <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
-          <ul>
-            <li>Clickable nav links that smooth scroll to page sections</li>
-            <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
-            <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-          </ul>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="services" class="bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Services we offer</h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+        <!-- Rodapé da página -->
+        <div class="row">
+            <footer class="main-footer footer">
+                <div class="pull-left hidden-xs" style="margin-left:10px;margin-top:15px;">
+                    Copyright &copy; 2019 - Todos os Direitos Reservados.
+                </div>
+                <div class="pull-right hidden-xs" style="margin-right:10px;margin-top:15px;">
+                    Desenvolvido por: Fernando Salles Claro
+                </div>
+            </footer>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Contact us</h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
+        <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="{{ asset('vendor/landpage/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/landpage/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="{{ asset('vendor/landpage/jquery-easing/jquery.easing.min.js') }}"></script>
-
-  <!-- Custom JavaScript for this theme -->
-  <script src="{{ asset('js/scrolling-nav.js') }}"></script>
-
-</body>
-
+    </body>
 </html>

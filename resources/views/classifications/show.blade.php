@@ -36,20 +36,32 @@
         <table class="table table-hover table-striped">
             <tbody>
                 <tr>
-                    <td class='col-sm-2'>ID</td>
-                    <td class='col-sm-10'>{{ $classification->id }}</td>
+                    <td class='col-sm-3'>ID</td>
+                    <td class='col-sm-9'>{{ $classification->id }}</td>
                 </tr>
 
                 <tr>
-                    <td class='col-sm-1'>Descrição</td>
-                    <td class='col-sm-10'>{{ $classification->descricao }}</td>
+                    <td class='col-sm-3'>Descrição</td>
+                    <td class='col-sm-9'>{{ $classification->descricao }}</td>
                 </tr>
 
                 <tr>
-                    <td class='col-sm-2'>Data de Criação</td>
-                    <td class='col-sm-10'>{{ $classification->created_at->format('d/m/Y h:i') }}</td>
+                    <td class='col-sm-3'>Data de Criação</td>
+                    <td class='col-sm-9'>
+                        @if(null != $classification->created_at)
+                            {{ $classification->created_at->format('d/m/Y H:i') }}
+                        @endif
+                    </td>
                 </tr>
 
+                <tr>
+                    <td class='col-sm-3'>Data da Última Atualização</td>
+                    <td class='col-sm-9'>
+                        @if (null != $classification->updated_at)
+                            {{ $classification->updated_at->format('d/m/Y H:i') }}
+                        @endif
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

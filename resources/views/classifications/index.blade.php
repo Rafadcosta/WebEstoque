@@ -8,10 +8,6 @@
     <i class='fa fa-database'></i> Lista de Classificações
 </span>
 
-<a class="btn btn-success btn-sm" href="{{ route('classifications.create') }}">
-    <i class="fa fa-plus"></i> Inserir uma nova Classificação
-</a>
-
 <ol class="breadcrumb">
     <li>
         <a href="{{ route('home') }}">Dashboard</a>
@@ -23,15 +19,29 @@
 
 @section('content')
 
+@if (session('message'))
+    <div class="alert alert-{{ session('type') }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Atenção: </strong>{{ session('message') }}
+    </div>
+@endif
+
 <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">
-        Relação de registros de Classificação
+    <div class="panel-heading clearfix">
+        <div class="btn-group pull-right">
+            <a class="btn btn-success btn-sm" href="{{ route('classifications.create') }}">
+                <i class="fa fa-plus"></i> Inserir um novo registro
+            </a>
+        </div>
+        <h5>Relação de registros de Classificação</h5>
     </div>
 
     <div class="panel-body">
         <!-- Table -->
-        <table class="table table-striped table-bordered table-hover table-responsive">
+        <table class="table table-striped table-bordered table-hover table-responsive" id="table-classificacao">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -44,45 +54,71 @@
             <tbody>
                 @foreach($classifications as $classification)
                 <tr>
-                    <td>{{ $classification->id }}</td>
-                    <td>{{ $classification->descricao }}</td>
-                    <td class='text-center' style='width:150px'>{{ $classification->created_at->format('d/m/Y h:m') }}
+                    <td>
+                        {{ $classification->id }}
                     </td>
-                    <td class='text-right' style="width: 140px">
-                        <a class='btn btn-primary btn-sm'
-                            href='{{ route("classifications.show", $classification->id) }}' role='button'>
+
+                    <td>
+                        {{ $classification->descricao }}
+                    </td>
+
+                    <td class='text-center' style='width:150px'>
+                        {{ $classification->created_at->format('d/m/Y h:m') }}
+                    </td>
+
+                    <td style="width:135px;">
+                        <!-- visualização de dados-->
+                        <a class='btn btn-primary btn-sm' style="float:left; margin-right: 2px;"
+                           href='{{ route("classifications.show", $classification->id) }}' role='button'>
                             <i class='fa fa-eye'></i>
                         </a>
 
-                        <a class='btn btn-warning btn-sm'
-                            href='{{ route("classifications.edit", $classification->id) }}' role='button'>
+                        <!-- edição de dados -->
+                        <a class='btn btn-warning btn-sm'  style="float:left;margin-right: 2px;"
+                           href='{{ route("classifications.edit", $classification->id) }}' role='button'>
                             <i class='fa fa-pencil'></i>
                         </a>
 
-                        <a class='btn btn-danger btn-sm'
-                            href="{{ route('classifications.destroy', $classification->id) }}">
-                            <i class='fa fa-trash'></i>
-                        </a>
+                        <!-- exclusão do registro -->
+                        <form action="{{ route('classifications.destroy', $classification->id) }}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                        <!-- <form method="post" action="{{ route('classifications.destroy', $classification->id) }}"
-                            style="">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <span class="form-group">
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class='fa fa-trash'></i>
-                                </button>
-                            </span>
-                        </form> -->
+                            <button type='submit' class='btn btn-danger btn-sm'  style="float:left">
+                                <i class='fa fa-trash'></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
+
             </tbody>
         </table>
     </div>
+
     <div class="panel-footer">
         {{ $classifications->links()  }}
     </div>
 
 </div>
+@stop
+
+@section('js')
+<script>
+$(document).ready(function() {
+    $('#table-classificacao').DataTable(
+        {
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+            },
+            "processing": true,
+        }
+    );
+});
+
+
+</script>
 @stop

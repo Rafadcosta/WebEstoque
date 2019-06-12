@@ -38,6 +38,7 @@
                     </div>
                     <!-- /.navbar-collapse -->
             @else
+
             <!-- Logo -->
             <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -53,31 +54,32 @@
                     <span class="sr-only">{{ trans('adminlte::adminlte.toggle_navigation') }}</span>
                 </a>
             @endif
-                <!-- Navbar Right Menu -->
-                <div class="navbar-custom-menu">
 
-                    <ul class="nav navbar-nav">
-                        <li>
-                            @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
-                                <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
-                                    <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
-                                </a>
-                            @else
-                                <a href="#"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                >
-                                    <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
-                                </a>
-                                <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
-                                    @if(config('adminlte.logout_method'))
-                                        {{ method_field(config('adminlte.logout_method')) }}
-                                    @endif
-                                    {{ csrf_field() }}
-                                </form>
-                            @endif
-                        </li>
-                    </ul>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li>
+                        @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
+                            <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
+                                <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
+                            </a>
+                        @else
+                            <!-- barra superior -->
+                            <a href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
+                            </a>
+                            <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
+                                @if(config('adminlte.logout_method'))
+                                    {{ method_field(config('adminlte.logout_method')) }}
+                                @endif
+                                {{ csrf_field() }}
+                            </form>
+                        @endif
+                    </li>
+                </ul>
                 </div>
+
                 @if(config('adminlte.layout') == 'top-nav')
                 </div>
                 @endif
@@ -87,6 +89,32 @@
         @if(config('adminlte.layout') != 'top-nav')
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
+
+            <!-- exibe o nome e o avatar do usuário na parte superior do menu lateral -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    @if(Gravatar::exists(Auth::user()->email))
+                    <img src="{{ Gravatar::get(Auth::user()->email) }}" alt="avatar" class="img-circle">
+                    @else
+                        @if(Auth::user()->gender == "N")
+                            <img src="{{ asset('img/avatar/avatar_000.png') }}" alt="avatar" class="img-circle">
+                        @elseif (Auth::user()->gender == "M")
+                            <img src="{{ asset('img/avatar/avatar_001.png') }}" alt="avatar" class="img-circle">
+                        @else
+                            <img src="{{ asset('img/avatar/avatar_002.png') }}" alt="avatar" class="img-circle">
+                        @endif
+                    @endif
+                </div>
+
+                <div class="pull-left info">
+                    <p>{{ str_limit(Auth::user()->name,22) }}</p>
+                    <a href="#">
+                        <i class="fa fa-circle text-success"></i>
+                        Online
+                    </a>
+                </div>
+
+            </div>
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
